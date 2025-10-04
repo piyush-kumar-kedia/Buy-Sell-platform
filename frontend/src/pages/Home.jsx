@@ -1,50 +1,63 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar.jsx";
-import Product from "./Product.jsx";
 import Card from "../components/card.jsx";
 import { getAllProducts } from "../api/products.js";
 
-const Home= ()=>{
-const [products,setProducts]= useState([]);
+const Home = () => {
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
-useEffect(()=>{
- const fetchProducts= async()=>{
-  const data= await getAllProducts();
-  console.log(data);
-  setProducts(data);
- };
- fetchProducts();
-},[]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getAllProducts();
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []);
 
- return (
+  const handleDelete = (id) => {
+    setProducts(products.filter((product) => product._id !== id));
+  };
+
+  // Functions to pass to Navbar
+  const handleSearch = (term) => setSearchTerm(term);
+  const handleCategoryChange = (category) => setSelectedCategory(category);
+
+  // Filter products based on search term and category
+  const filteredProducts = products.filter((product) => {
+    const matchesTitle = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || product.category === selectedCategory;
+    return matchesTitle && matchesCategory;
+  });
+
+  // Get unique categories from products for the filter dropdown
+  const categories = ["All", ...new Set(products.map((p) => p.category))];
+
+  return (
     <>
-    <Navbar/>
-    <div className="mx-[120px] my-[10px] grid grid-cols-4 gap-y-8">
-        {products && products.length>0?(
-          products.map((product) => {
-          return <Card key={product._id} product={product} />;
-        })
-        ):(
-            <p>Loading products...</p>
+      <Navbar
+        onSearch={handleSearch}
+        searchTerm={searchTerm}
+        onCategoryChange={handleCategoryChange}
+        categories={categories}
+        selectedCategory={selectedCategory}
+      />
+
+      <div className="mx-[120px] my-[10px] grid grid-cols-4 gap-y-8">
+        {filteredProducts && filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <Card key={product._id} product={product} onDelete={handleDelete} />
+          ))
+        ) : (
+          <p className="text-center col-span-4 text-gray-500">
+            {products.length === 0 ? "Loading products..." : "No products found"}
+          </p>
         )}
-        
       </div>
     </>
- )
-}
+  );
+};
+
 export default Home;
-
-
-{/* <Navbar />
-      <div className="mx-[120px] my-[10px] grid grid-cols-4 gap-y-8">
-        {cards.map(() => {
-          return <Card />;
-        })}
-      </div>
-      <button
-        onClick={() => {
-          setCards([...cards, cards.length + 1]);
-        }}
-      >
-        Add Card
-      </button> */}

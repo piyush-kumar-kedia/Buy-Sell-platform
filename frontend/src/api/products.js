@@ -44,6 +44,47 @@ export const getProductById= async(id)=>{
     }
 };
 
+// Delete product by ID
+export const deleteProductById = async (id, token) => {
+  try {
+    const res = await fetch(`http://localhost:3000/product/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        // "Authorization": `Bearer ${token}`, // ✅ send JWT for auth
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete product");
+    }
+
+    const data = await res.json();
+    return data; 
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    throw err;
+  }
+};
+
+// Update product by ID
+export const updateProduct = async (id, updatedData) => {
+  const response = await fetch(`http://localhost:3000/product/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update product");
+  }
+  return response.json();
+};
+
+
+
 export const formatDate= (isoString)=>{
      const date = new Date(isoString);
   const today = new Date();
