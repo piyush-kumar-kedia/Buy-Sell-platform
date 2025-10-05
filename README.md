@@ -18,13 +18,9 @@ This platform allows users to **buy and sell products**, securely **authenticate
   - **Update:** Update **only owned products**
   - **Delete:** Delete **only owned products**
 
-### **Optional Advanced Features**
-- 🔍 **Search & Filter:** Find products by **title** or **category**  
-- ❤️ **Wishlist / Favorites:** Save products for later  
-- 💬 **Chat system:** Buyer-seller messaging  
-- 📍 **Location-based products:** Filter by **location**  
-- 💳 **Mock Payment:** Mark products as **sold**  
-- 👤 **User Profile Page:** View **user info** and **listed products**  
+### **Advanced Features**
+- 🔍 **Search :** Find products by **title**   
+- 🔍 **Filter :** Find products by **category**  
 
 ---
 
@@ -37,4 +33,62 @@ This platform allows users to **buy and sell products**, securely **authenticate
 
 ---
 
+### **Complete Setup Guide**
+1. **Prerequisites**
 
+Install Node.js (v18+ recommended)
+
+Install npm (comes with Node.js)
+
+Install MongoDB (local or cloud Atlas)
+
+2. **Clone the Repository**
+git clone https://github.com/piyush-kumar-kedia/Buy-Sell-platform.git
+cd Buy-Sell-platform
+
+3. **Backend Setup**
+
+Navigate to backend folder:
+
+cd backend
+
+
+Install dependencies:
+
+npm install
+
+
+4) **Create a .env file in the backend folder with the following:**
+
+PORT=3000
+JWT_SECRET="40814aa2964e4ca60ad6a0f019be83019bd54730ee3f5020b02aed8fcff1f354"
+MONGO_URI=mongodb+srv://piyushkumarkedia02221_db_user:nTOCuEcEVHSEX9jf@cluster0.uf2ngtu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
+5) **Start the backend server (development mode with auto-restart):**
+
+npm run dev
+
+Backend will run on http://localhost:3000
+
+
+**Frontend Setup**
+
+1) **Navigate to frontend folder:**
+
+cd frontend
+
+
+2) **Install dependencies:**
+
+npm install
+
+
+3) **Start the frontend development server:**
+
+npm start
+
+
+Open in browser:
+
+http://localhost:5173/
