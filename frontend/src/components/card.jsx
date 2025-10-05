@@ -20,12 +20,12 @@ const Card = ({ product, onDelete }) => {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    navigate(`/updateProduct/${product._id}`); // go to update page
+    navigate(`/updateProduct/${product._id}`);
   };
 
   return (
     <Link to={`/product/${product._id}`}>
-      <div className="w-[286px] h-[264px] border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer relative">
+      <div className="w-full sm:w-[286px] border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition cursor-pointer relative mb-4 sm:mb-0">
         {/* Product Image */}
         <div className="flex justify-center items-center h-[170px] p-1.5">
           <img
@@ -36,13 +36,12 @@ const Card = ({ product, onDelete }) => {
         </div>
 
         {/* Product Info */}
-        <div className="px-[16px] py-[8px] h-[94px]">
+        <div className="px-4 py-2 h-auto">
           <div className="flex justify-between items-center">
-            <div className="text-[20px] font-bold">₹{product.price}</div>
+            <div className="text-lg font-bold sm:text-[20px]">₹{product.price}</div>
 
             {/* Buttons */}
             <div className="flex items-center gap-1">
-              {/* Edit Button */}
               <button
                 onClick={handleEdit}
                 className="p-1 rounded-full hover:bg-blue-100"
@@ -50,7 +49,6 @@ const Card = ({ product, onDelete }) => {
                 <Edit size={18} className="text-blue-500" />
               </button>
 
-              {/* Delete Button */}
               <button
                 onClick={handleDelete}
                 className="p-1 rounded-full hover:bg-red-100"
@@ -60,15 +58,15 @@ const Card = ({ product, onDelete }) => {
             </div>
           </div>
 
-          <div className="text-[15px] font-medium truncate">
+          <div className="text-sm sm:text-[15px] font-medium truncate mt-1">
             {product.title}
           </div>
 
-          <div className="justify-between flex mt-1">
-            <div className="w-[150px] text-gray-400 text-[13px] overflow-hidden whitespace-nowrap">
+          <div className="flex justify-between mt-1 text-[12px] sm:text-[13px]">
+            <div className="w-[120px] sm:w-[150px] text-gray-400 overflow-hidden whitespace-nowrap">
               {product.description}
             </div>
-            <div className="text-[13px]">{formatDate(product.createdAt)}</div>
+            <div>{formatDate(product.createdAt)}</div>
           </div>
         </div>
       </div>

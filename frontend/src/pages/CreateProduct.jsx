@@ -25,7 +25,6 @@ const CreateProduct = () => {
     try {
       const product = await createProduct(form);
       setMessage("✅ Product created successfully!");
-      console.log(product);
       setForm({
         title: "",
         description: "",
@@ -33,6 +32,7 @@ const CreateProduct = () => {
         category: "",
         image_url: "",
       });
+      console.log(product);
     } catch (err) {
       setMessage("❌ Error creating product.");
       console.log(err);
@@ -42,11 +42,11 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-12 p-8 bg-white border rounded-2xl shadow-2xl">
-      <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
+    <div className="w-full max-w-xl mx-auto mt-12 p-6 sm:p-8 bg-white border rounded-2xl shadow-2xl">
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-800 mb-6 text-center">
         🚀 Create New Product
       </h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
         <label className="font-medium">
           Product Title <span className="text-red-500">*</span>
         </label>
@@ -57,7 +57,7 @@ const CreateProduct = () => {
           value={form.title}
           onChange={handleChange}
           required
-          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
         />
 
         <label className="font-medium">
@@ -70,7 +70,7 @@ const CreateProduct = () => {
           onChange={handleChange}
           required
           rows="3"
-          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
         />
 
         <label className="font-medium">
@@ -83,7 +83,7 @@ const CreateProduct = () => {
           value={form.price}
           onChange={handleChange}
           required
-          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
         />
 
         <label className="font-medium">
@@ -96,7 +96,7 @@ const CreateProduct = () => {
           value={form.category}
           onChange={handleChange}
           required
-          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
         />
 
         <label className="font-medium">Image URL (Optional)</label>
@@ -106,13 +106,13 @@ const CreateProduct = () => {
           placeholder="Image URL"
           value={form.image_url}
           onChange={handleChange}
-          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+          className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition duration-200 shadow-md"
+          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition duration-200 shadow-md"
         >
           {loading ? "⏳ Creating..." : "✨ Create Product"}
         </button>
@@ -120,18 +120,19 @@ const CreateProduct = () => {
 
       {message && (
         <p
-          className={`mt-5 text-center font-medium ${
+          className={`mt-4 text-center font-medium ${
             message.includes("Error") ? "text-red-600" : "text-green-600"
           }`}
         >
           {message}
         </p>
       )}
+
       <div className="flex justify-center mt-6">
         <button
           onClick={() => navigate("/")}
           disabled={loading}
-          className="flex items-center gap-2 bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-200 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 bg-blue-600 text-white font-semibold py-3 px-4 sm:px-6 rounded-full shadow-lg transition-all duration-200 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Home size={20} /> Go to Home
         </button>

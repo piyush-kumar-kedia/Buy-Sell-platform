@@ -16,22 +16,19 @@ const Navbar = ({
       try {
         const res = await fetch("http://localhost:3000/user/me", {
           method: "GET",
-          credentials: "include", // send cookies
+          credentials: "include",
         });
-
         if (!res.ok) {
-          setUsername(null); // Not authenticated
+          setUsername(null);
           return;
         }
-
         const data = await res.json();
-        setUsername(data.username); // set from backend
+        setUsername(data.username);
       } catch (err) {
         console.error("Error fetching user:", err);
         setUsername(null);
       }
     };
-
     fetchUser();
   }, []);
 
@@ -39,9 +36,8 @@ const Navbar = ({
     try {
       const res = await fetch("http://localhost:3000/user/logout", {
         method: "POST",
-        credentials: "include", // important to send the cookie
+        credentials: "include",
       });
-
       if (res.ok) {
         setUsername(null);
         navigate("/");
@@ -56,13 +52,44 @@ const Navbar = ({
   };
 
   return (
-    <div className="shadow-md h-[68px] bg-gray-100 flex items-center justify-between px-4">
+    <div className="shadow-md bg-gray-100 px-4 py-2 md:py-0 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0">
       {/* Logo */}
-      <img src="/olx_logo_2025.svg" className="h-[48px]" alt="Logo" />
+      <div className="flex items-center w-full md:w-auto justify-between md:justify-start">
+        <img src="/olx_logo_2025.svg" className="h-[48px]" alt="Logo" />
 
-      {/* Search + Filter container */}
-      <div className="flex items-center flex-1 max-w-[700px] gap-2">
-        {/* Search Input */}
+        {/* Right buttons on mobile */}
+        {/* Right buttons on mobile */}
+<div className="flex items-center gap-2 md:hidden">
+  {username ? (
+    <>
+      <button
+        onClick={handleLogout}
+        className="font-bold underline hover:no-underline cursor-pointer text-sm"
+      >
+        Logout
+      </button>
+      <Link to="/create">
+        <div className="hover:shadow-lg transition h-[36px] w-[80px] sm:h-[40px] sm:w-[96px] font-bold border-sky-600 border-2 sm:border-4 rounded-2xl sm:rounded-3xl justify-center items-center flex text-sm sm:text-base">
+          <span className="text-xl sm:text-2xl mr-1">+</span> SELL
+        </div>
+      </Link>
+    </>
+  ) : (
+    <>
+      <Link to="/login" className="font-bold underline hover:no-underline text-sm">
+        Login
+      </Link>
+      <Link to="/register" className="font-bold underline hover:no-underline text-sm">
+        Register
+      </Link>
+    </>
+  )}
+</div>
+
+      </div>
+
+      {/* Search + Filter */}
+      <div className="flex flex-col sm:flex-row items-center flex-1 w-full md:max-w-[700px] gap-2">
         <div className="flex justify-between items-center bg-white border-[2px] border-black rounded-[3px] h-[43px] flex-1 pl-2">
           <input
             type="text"
@@ -76,7 +103,6 @@ const Navbar = ({
           </div>
         </div>
 
-        {/* Category Filter */}
         <select
           value={selectedCategory}
           onChange={(e) => onCategoryChange(e.target.value)}
@@ -90,9 +116,8 @@ const Navbar = ({
         </select>
       </div>
 
-      {/* Right Buttons */}
-      {/* Right Buttons */}
-      <div className="flex mr-5 text-xl justify-center items-center gap-4">
+      {/* Right buttons on desktop */}
+      <div className="hidden md:flex items-center gap-4 text-xl ml-4">
         {username ? (
           <>
             <span className="font-bold text-gray-800">Welcome, {username}</span>
@@ -103,7 +128,7 @@ const Navbar = ({
               Logout
             </button>
 
-            {/* SELL button shown only if logged in */}
+            {/* SELL button only if logged in */}
             <Link to="/create">
               <div className="hover:shadow-lg transition h-[48px] w-[104px] font-bold border-sky-600 border-4 rounded-3xl justify-center items-center flex">
                 <span className="text-2xl mr-1">+</span> SELL
@@ -112,15 +137,11 @@ const Navbar = ({
           </>
         ) : (
           <>
-            <Link to="/login">
-              <div className="font-bold underline hover:no-underline cursor-pointer">
-                Login
-              </div>
+            <Link to="/login" className="font-bold underline hover:no-underline">
+              Login
             </Link>
-            <Link to="/register">
-              <div className="font-bold underline hover:no-underline cursor-pointer">
-                Register
-              </div>
+            <Link to="/register" className="font-bold underline hover:no-underline">
+              Register
             </Link>
           </>
         )}

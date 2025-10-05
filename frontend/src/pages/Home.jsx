@@ -5,7 +5,7 @@ import { getAllProducts } from "../api/products.js";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // using it to track loading state
+  const [loading, setLoading] = useState(true); 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -55,9 +55,9 @@ const Home = () => {
         selectedCategory={selectedCategory}
       />
 
-      <div className="mx-[120px] my-[10px] grid grid-cols-4 gap-y-8">
+      <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
         {loading ? (
-          <p className="text-center col-span-4 text-gray-500">
+          <p className="text-center col-span-full text-gray-500">
             Loading products...
           </p>
         ) : filteredProducts.length > 0 ? (
@@ -65,7 +65,7 @@ const Home = () => {
             <Card key={product._id} product={product} onDelete={handleDelete} />
           ))
         ) : (
-          <p className="text-center col-span-4 text-gray-500">
+          <p className="text-center col-span-full text-gray-500">
             No products found
           </p>
         )}
