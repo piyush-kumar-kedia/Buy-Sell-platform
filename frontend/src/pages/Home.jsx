@@ -5,13 +5,21 @@ import { getAllProducts } from "../api/products.js";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true); // using it to track loading state
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getAllProducts();
-      setProducts(data);
+      try {
+        const data = await getAllProducts();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchProducts();
   }, []);
@@ -26,7 +34,9 @@ const Home = () => {
 
   // Filter products based on search term and category
   const filteredProducts = products.filter((product) => {
-    const matchesTitle = product.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesTitle = product.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     const matchesCategory =
       selectedCategory === "All" || product.category === selectedCategory;
     return matchesTitle && matchesCategory;
@@ -46,13 +56,17 @@ const Home = () => {
       />
 
       <div className="mx-[120px] my-[10px] grid grid-cols-4 gap-y-8">
-        {filteredProducts && filteredProducts.length > 0 ? (
+        {loading ? (
+          <p className="text-center col-span-4 text-gray-500">
+            Loading products...
+          </p>
+        ) : filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <Card key={product._id} product={product} onDelete={handleDelete} />
           ))
         ) : (
           <p className="text-center col-span-4 text-gray-500">
-            {products.length === 0 ? "Loading products..." : "No products found"}
+            No products found
           </p>
         )}
       </div>

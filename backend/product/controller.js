@@ -1,9 +1,10 @@
 import Product from "./model.js"
 
 export const createProduct= async(req,res)=>{
+    const userId = req.user.id;
     const {title,description,price,category,image_url, owner}= req.body;
     try{
-        const product= new Product({title,description,price,category,image_url,owner});
+        const product= new Product({title,description,price,category,image_url,owner:userId});
         await product.save();
         res.status(201).json(product);
     }catch(err){
@@ -21,16 +22,6 @@ export const getPoduct= async(req,res)=>{
     }
 }
 
-// export const deleteProduct = async(req,res)=>{
-//     try{
-//         const res= await Product.findByIdAndDelete(req.params.id);
-
-//     }
-//     catch(err){
-
-//     }
-// }
-
 export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -39,10 +30,9 @@ export const deleteProduct = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // Ownership check (assuming req.user.id is set after authentication)
-    // if (product.user.toString() !== req.user.id) {
-    //   return res.status(403).json({ message: "Not authorized to delete this product" });
-    // }
+    if (product.owner.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden: You are not the owner" });
+    }
 
     await product.deleteOne();
 
@@ -56,7 +46,7 @@ export const deleteProduct = async (req, res) => {
 
 export const getProductById= async(req,res)=>{
  try{
-    const product= await Product.findById(req.params.id);
+    const product= await Product.findById(req.params.id).populate("owner", "username email");
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -77,6 +67,9 @@ export const updateProduct = async (req, res) => {
     const product = await Product.findById(id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
+    }
+    if (product.owner.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Forbidden: You are not the owner" });
     }
 
     // Update only the fields provided in the request

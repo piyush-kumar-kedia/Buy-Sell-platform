@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { getProductById, deleteProductById } from "../api/products.js";
 import { useParams, useNavigate } from "react-router-dom";
 import { formatDate } from "../api/products.js";
-import { Trash2, Edit } from "lucide-react"; // Import edit icon
+import { Trash2, Edit } from "lucide-react";
 
 const Product = () => {
   const { id } = useParams();
-  const navigate = useNavigate(); // used to redirect after deletion
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -57,16 +57,20 @@ const Product = () => {
       {/* Product Info */}
       <div className="px-[16px] py-[8px]">
         <div className="justify-between flex items-center">
-          <div className="text-3xl font-bold text-green-700">₹{product.price}</div>
+          <div className="text-3xl font-bold text-green-700">
+            ₹{product.price}
+          </div>
           <div className="flex items-center gap-2">
-            <div className="font-semibold text-gray-800">By: PIYUSH KUMAR KEDIA</div>
+            <div className="font-semibold text-gray-800">
+              By: {product.owner.username}
+            </div>
             {/* Edit Button */}
-          <button
-    onClick={handleEdit}
-    className="p-2 rounded-full hover:bg-blue-100"
-  >
-    <Edit size={20} className="text-blue-500" />
-  </button>
+            <button
+              onClick={handleEdit}
+              className="p-2 rounded-full hover:bg-blue-100"
+            >
+              <Edit size={20} className="text-blue-500" />
+            </button>
             {/* Delete Button */}
             <button
               onClick={handleDelete}
@@ -78,10 +82,14 @@ const Product = () => {
         </div>
 
         <div className="text-2xl font-bold mt-2">{product.title}</div>
-        <div className="text-gray-500 mb-4">(Category - {product.category})</div>
+        <div className="text-gray-500 mb-4">
+          (Category - {product.category})
+        </div>
 
         <div className="justify-between flex items-end pb-[10px]">
-          <div className="w-3xl text-gray-400 text-[13px]">{product.description}</div>
+          <div className="w-3xl text-gray-400 text-[13px]">
+            {product.description}
+          </div>
           <div className="text-sm text-gray-500">
             Posted on: {formatDate(product.createdAt)}
           </div>

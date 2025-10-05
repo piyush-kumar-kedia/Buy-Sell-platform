@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createProduct } from "../api/products.js";
+import { Home } from "lucide-react";
 
 const CreateProduct = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -32,6 +35,7 @@ const CreateProduct = () => {
       });
     } catch (err) {
       setMessage("❌ Error creating product.");
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -42,70 +46,77 @@ const CreateProduct = () => {
       <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">
         🚀 Create New Product
       </h2>
-     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-  <label className="font-medium">Product Title <span className="text-red-500">*</span></label>
-  <input
-    type="text"
-    name="title"
-    placeholder="Product Title"
-    value={form.title}
-    onChange={handleChange}
-    required
-    className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-  />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <label className="font-medium">
+          Product Title <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="title"
+          placeholder="Product Title"
+          value={form.title}
+          onChange={handleChange}
+          required
+          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        />
 
-  <label className="font-medium">Product Description <span className="text-red-500">*</span></label>
-  <textarea
-    name="description"
-    placeholder="Product Description"
-    value={form.description}
-    onChange={handleChange}
-    required
-    rows="3"
-    className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-  />
+        <label className="font-medium">
+          Product Description <span className="text-red-500">*</span>
+        </label>
+        <textarea
+          name="description"
+          placeholder="Product Description"
+          value={form.description}
+          onChange={handleChange}
+          required
+          rows="3"
+          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        />
 
-  <label className="font-medium">Price (₹) <span className="text-red-500">*</span></label>
-  <input
-    type="number"
-    name="price"
-    placeholder="Price"
-    value={form.price}
-    onChange={handleChange}
-    required
-    className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-  />
+        <label className="font-medium">
+          Price (₹) <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="number"
+          name="price"
+          placeholder="Price"
+          value={form.price}
+          onChange={handleChange}
+          required
+          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        />
 
-  <label className="font-medium">Category <span className="text-red-500">*</span></label>
-  <input
-    type="text"
-    name="category"
-    placeholder="Category"
-    value={form.category}
-    onChange={handleChange}
-    required
-    className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-  />
+        <label className="font-medium">
+          Category <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="category"
+          placeholder="Category"
+          value={form.category}
+          onChange={handleChange}
+          required
+          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        />
 
-  <label className="font-medium">Image URL (Optional)</label>
-  <input
-    type="text"
-    name="image_url"
-    placeholder="Image URL"
-    value={form.image_url}
-    onChange={handleChange}
-    className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-  />
+        <label className="font-medium">Image URL (Optional)</label>
+        <input
+          type="text"
+          name="image_url"
+          placeholder="Image URL"
+          value={form.image_url}
+          onChange={handleChange}
+          className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+        />
 
-  <button
-    type="submit"
-    disabled={loading}
-    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition duration-200 shadow-md"
-  >
-    {loading ? "⏳ Creating..." : "✨ Create Product"}
-  </button>
-</form>
-
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition duration-200 shadow-md"
+        >
+          {loading ? "⏳ Creating..." : "✨ Create Product"}
+        </button>
+      </form>
 
       {message && (
         <p
@@ -116,6 +127,15 @@ const CreateProduct = () => {
           {message}
         </p>
       )}
+      <div className="flex justify-center mt-6">
+        <button
+          onClick={() => navigate("/")}
+          disabled={loading}
+          className="flex items-center gap-2 bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-200 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          <Home size={20} /> Go to Home
+        </button>
+      </div>
     </div>
   );
 };

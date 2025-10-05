@@ -7,11 +7,11 @@ const Card = ({ product, onDelete }) => {
   const navigate = useNavigate();
 
   const handleDelete = async (e) => {
-    e.preventDefault(); // stop link navigation
+    e.preventDefault();
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await deleteProductById(product._id); // delete from backend
-        if (onDelete) onDelete(product._id); // tell parent to remove from state
+        await deleteProductById(product._id);
+        if (onDelete) onDelete(product._id);
       } catch (err) {
         console.error("Error deleting product:", err);
       }
@@ -19,7 +19,7 @@ const Card = ({ product, onDelete }) => {
   };
 
   const handleEdit = (e) => {
-    e.preventDefault(); // prevent navigating to product page when clicking edit
+    e.preventDefault();
     navigate(`/updateProduct/${product._id}`); // go to update page
   };
 
@@ -60,7 +60,9 @@ const Card = ({ product, onDelete }) => {
             </div>
           </div>
 
-          <div className="text-[15px] font-medium truncate">{product.title}</div>
+          <div className="text-[15px] font-medium truncate">
+            {product.title}
+          </div>
 
           <div className="justify-between flex mt-1">
             <div className="w-[150px] text-gray-400 text-[13px] overflow-hidden whitespace-nowrap">
