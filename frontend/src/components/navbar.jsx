@@ -52,12 +52,12 @@ const Navbar = ({
   };
 
   return (
-    <div className="shadow-md bg-gray-100 px-4 py-2 md:py-0 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0">
+   <div className="shadow-md bg-gray-100 px-4 py-2 md:h-[64px] flex flex-col md:flex-row items-center justify-between gap-2 md:gap-0">
+
       {/* Logo */}
       <div className="flex items-center w-full md:w-auto justify-between md:justify-start">
         <img src="/olx_logo_2025.svg" className="h-[48px]" alt="Logo" />
 
-        {/* Right buttons on mobile */}
         {/* Right buttons on mobile */}
 <div className="flex items-center gap-2 md:hidden">
   {username ? (

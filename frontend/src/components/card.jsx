@@ -38,7 +38,9 @@ const Card = ({ product, onDelete }) => {
         {/* Product Info */}
         <div className="px-4 py-2 h-auto">
           <div className="flex justify-between items-center">
-            <div className="text-lg font-bold sm:text-[20px]">₹{product.price}</div>
+            <div className="text-lg font-bold sm:text-[20px]">
+              ₹{product.price}
+            </div>
 
             {/* Buttons */}
             <div className="flex items-center gap-1">
@@ -63,9 +65,10 @@ const Card = ({ product, onDelete }) => {
           </div>
 
           <div className="flex justify-between mt-1 text-[12px] sm:text-[13px]">
-            <div className="w-[120px] sm:w-[150px] text-gray-400 overflow-hidden whitespace-nowrap">
+            <div className="w-[120px] sm:w-[150px] text-gray-400 truncate">
               {product.description}
             </div>
+
             <div>{formatDate(product.createdAt)}</div>
           </div>
         </div>

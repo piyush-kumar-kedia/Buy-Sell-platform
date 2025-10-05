@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const generateToken = (user) => {
+export const generateToken = (user) => {   //generating token
   return jwt.sign(
     { id: user._id, username: user.username },
     process.env.JWT_SECRET,
@@ -8,7 +8,7 @@ export const generateToken = (user) => {
   );
 };
 
-export const authenticateToken = (req, res, next) => {
+export const authenticateToken = (req, res, next) => {  //verifying user
   const token = req.cookies.jwt;
 
   if (!token) {
