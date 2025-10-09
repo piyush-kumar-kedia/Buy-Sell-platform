@@ -61,7 +61,9 @@ npm install
 4) **Create a .env file in the backend folder with the following:**
 
 PORT=3000
+
 JWT_SECRET=your_jwt_secret_key
+
 MONGO_URI=your_mongodb_connection_string
 
 
