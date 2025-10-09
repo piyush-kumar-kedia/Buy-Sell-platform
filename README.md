@@ -61,8 +61,8 @@ npm install
 4) **Create a .env file in the backend folder with the following:**
 
 PORT=3000
-JWT_SECRET="40814aa2964e4ca60ad6a0f019be83019bd54730ee3f5020b02aed8fcff1f354"
-MONGO_URI=mongodb+srv://piyushkumarkedia02221_db_user:nTOCuEcEVHSEX9jf@cluster0.uf2ngtu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_jwt_secret_key
+MONGO_URI=your_mongodb_connection_string
 
 
 5) **Start the backend server (development mode with auto-restart):**
